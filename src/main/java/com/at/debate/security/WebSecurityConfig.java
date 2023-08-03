@@ -22,7 +22,6 @@ public class WebSecurityConfig
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(myUser());
         authProvider.setPasswordEncoder(myPas());
-        //System.out.println("myAuth" + authProvider.toString());
         return authProvider;
 	}
 
@@ -39,10 +38,9 @@ public class WebSecurityConfig
 	
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		//System.out.println("web sec");
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.POST, "/studentdetails/save").hasAnyAuthority("USER", "ADMIN")
-        .antMatchers(HttpMethod.POST, "/","/students/showFormForAdd","/students/403").hasAnyAuthority("user","admin")
+        .antMatchers("/","/students/showFormForAdd","/students/403").hasAnyAuthority("user","admin")
         .antMatchers("/students/showFormForUpdate","/students/delete").hasAuthority("admin")
         .anyRequest().authenticated()
         .and()
