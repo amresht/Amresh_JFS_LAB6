@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.at.debate.model.Student;
@@ -28,17 +29,14 @@ public class MyAuthController {
 	}
 	
 	@RequestMapping("/list")
-	public String listBooks(Model theModel) {
+	public String listStudents(Model theModel) {
 		
-
-		// get Books from db
+		// get students from db
 		List<Student> theStudents = studentService.findAll();
 
 		// add to the spring model
 		theModel.addAttribute("Students", theStudents);
-		
-
-		return "list-Students";
+		return "list-students";
 	}
 
 	@RequestMapping("/showFormForAdd")
@@ -46,22 +44,20 @@ public class MyAuthController {
 
 		// create model attribute to bind form data
 		Student theStudent = new Student();
-
 		theModel.addAttribute("Student", theStudent);
-
 		return "student-form";
 	}
 
 	
 	@RequestMapping("/showFormForUpdate")
-	public String showFormForUpdate(@RequestParam("bookId") int theId,
+	public String showFormForUpdate(@RequestParam("studentId") int theId,
 			Model theModel) {
 
-		// get the Book from the service
+		// get the student from the service
 		Student theStudent = studentService.findById(theId);
 
 
-		// set Book as a model attribute to pre-populate the form
+		// set student as a model attribute to pre-populate the form
 		theModel.addAttribute("Student", theStudent);
 
 		// send over to our form
@@ -70,7 +66,7 @@ public class MyAuthController {
 
 
 	@PostMapping("/save")
-	public String saveBook(@RequestParam("id") int id,
+	public String saveStudent(@RequestParam("id") int id,
 			@RequestParam("first_name") String first_name, @RequestParam("last_name") String last_name, @RequestParam("course") String course,  @RequestParam("country") String country) {
 
 		System.out.println(id);
@@ -95,7 +91,7 @@ public class MyAuthController {
 	
 
 	@RequestMapping("/delete")
-	public String delete(@RequestParam("bookId") int theId) {
+	public String delete(@RequestParam("studentId") int theId) {
 		// delete the Student
 		studentService.deleteById(theId);
 
@@ -122,4 +118,11 @@ public class MyAuthController {
 
 	}
 
+	
+	@RequestMapping("/error")
+	public String greetError()
+	{
+		return "Welcome error";
+	}
+	
 }

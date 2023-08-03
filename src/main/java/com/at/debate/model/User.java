@@ -40,6 +40,12 @@ public class User {
 	   List<Role> roles = new ArrayList<>();
 
 
+	public User() {
+		//super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public User(String username, String password, List<Role> roles) {
 		super();
 		this.username = username;
